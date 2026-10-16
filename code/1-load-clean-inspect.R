@@ -47,10 +47,7 @@ class(amounts)
 class(funds)
 amounts > 15
 
-mixed <- c(10, "20", 30)
-mixed
-class(mixed)
-
+# Choosing part of a vector is called indexing or slicing.
 # R positions start at 1.
 amounts[1]
 amounts[c(1, 3)]
@@ -72,21 +69,18 @@ practice[c(1, 4)]
 is.na(practice)
 sum(practice, na.rm = TRUE)
 
-# 3. Lists, data frames, and tibbles ----------------------------------------
+# 3. Lists and data frames ----------------------------------------
 project <- list(city = "Chicago", year = 2026, amounts = amounts)
 str(project)
 project["year"]     # A smaller list
 project[["year"]]   # The value inside
 project$year        # The value, accessed by name
 
-mini_budget <- data.frame(fund = funds, amount = amounts)
-mini_budget
-mini_budget[1, ]    # First row, all columns
-mini_budget[1, 2]   # First row, second column
-mini_budget$amount  # One column as a vector
-
-mini_tbl <- tibble(fund = funds, amount = amounts)
-mini_tbl
+example_data <- data.frame(fund = funds, amount = amounts)
+example_data
+example_data[1, ]    # First row, all columns
+example_data[1, 2]   # First row, second column
+example_data$amount  # One column as a vector
 
 # 4. Load the actual downloaded data ---------------------------------------
 # This path starts at the project root, even though the script is in code/.
@@ -101,6 +95,9 @@ budget_raw <- read_csv(
   data_file,
   col_types = cols(.default = col_character())
 )
+
+# read_csv() returns a tibble, a type of data frame used by tidyverse.
+# Its compact preview shows column types. No separate tibble() call is needed.
 
 # 5. Inspect and make a working copy ---------------------------------------
 dim(budget_raw)     # Rows, then columns: 156 and 6 in the October 10 download
@@ -161,13 +158,20 @@ largest_items <- budget %>%
 head(largest_items, 3)
 
 # 7. Your turn -------------------------------------------------------------
-# Create large_corporate using budget:
-# - Keep Corporate Fund rows with revenue above 100,000,000.
-# - Keep REVENUE_SOURCE and ESTIMATED_REVENUE.
-# - Sort amounts from largest to smallest.
-# - Count the retained rows with nrow().
-# Explain what a row represents. Does this compare total revenue across funds?
-# The solution is in the lecture appendix.
+# Use your own downloaded dataset and your own imported object:
+# - Choose a condition related to your question and filter matching rows.
+# - Select two or three useful columns.
+# - Sort by one chosen column and save as data_subset.
+# - Inspect with head() and count the rows with nrow().
+# Explain what one retained row represents and why you chose the subset.
+# Adapt this template before running it (replace all placeholder names):
+# data_subset <- your_data %>%
+#   filter(your_condition) %>%
+#   select(column_1, column_2) %>%
+#   arrange(column_2)
+# head(data_subset)
+# nrow(data_subset)
+# Use desc(column_2) if reverse order helps your inspection.
 
 # 8. Optional Module 4 preview ---------------------------------------------
 # if chooses a branch based on one logical result.
